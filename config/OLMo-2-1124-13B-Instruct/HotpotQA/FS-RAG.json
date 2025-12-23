@@ -1,0 +1,17 @@
+{
+    "model_name_or_path": "allenai/OLMo-2-1124-13B-Instruct",
+    "method": "fix-sentence-retrieval",
+    "dataset": "hotpotqa",
+    "data_path": "../data/hotpotqa",
+    "fewshot": 8,
+    "sample": 1000,
+    "shuffle": false,
+    "generate_max_length": 128,
+    "query_formulation": "direct",
+    "output_dir": "../result/FS-RAG_OLMo-2-1124-13B-Instruct_hotpotqa",
+    "retriever": "BM25",
+    "es_index_name": "wiki",
+    "retrieve_topk": 3,
+    "use_counter": true,
+    "debug": false
+}

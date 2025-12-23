@@ -1,0 +1,19 @@
+{
+    "model_name_or_path": "Qwen/Qwen2.5-32B-Instruct",
+    "method": "flare",
+    "dataset": "hotpotqa",
+    "data_path": "../data/hotpotqa",
+    "fewshot": 8,
+    "sample": 1000,
+    "shuffle": false,
+    "generate_max_length": 128,
+    "query_formulation": "direct",
+    "output_dir": "../result/flare_Qwen2.5-32B-Instruct_hotpotqa",
+    "retriever": "BM25",
+    "es_index_name": "wiki",
+    "retrieve_topk": 3,
+    "hallucination_threshold": 0.1,
+    "use_counter": true,
+    "sentence_solver": "avg",
+    "debug": false
+}
