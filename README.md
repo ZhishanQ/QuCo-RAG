@@ -6,10 +6,10 @@
 
 ### Prerequisites
 
-#### Environment Setup
+#### Step 1: Environment Setup
 
 
-#### Wikipedia dump download & BM25 Indexing
+#### Step 2: Wikipedia dump download & BM25 Indexing
 
 
 Download the Wikipedia dump from the [DPR repository](https://github.com/facebookresearch/DPR/blob/main/dpr/data/download_data.py#L32) using the following command:
@@ -76,7 +76,7 @@ The script will:
 > Note: Data stored in `/tmp` will be lost when the job ends.
 
 
-#### Download Dataset
+#### Step 3: Download Dataset
 
 For 2WikiMultihopQA:
 
