@@ -342,6 +342,41 @@ We provide configuration files for the following models and datasets:
 
 All configurations are in the `config/` folder.
 
+### Configuration Parameters
+
+The following table describes all parameters available in QuCo-RAG configuration files:
+
+| Parameter | Type | Description | Example Values |
+|-----------|------|-------------|----------------|
+| `model_name_or_path` | string | Hugging Face model ID or local path to the LLM | `"allenai/OLMo-2-1124-7B-Instruct"` |
+| `method` | string | RAG method identifier | `"QuCo-RAG"`, `"flare"`, etc. |
+| `dataset` | string | Dataset name | `"2wikimultihopqa"`, `"hotpotqa"` |
+| `data_path` | string | Path to dataset directory | `"../data/2wikimultihopqa"` |
+| `fewshot` | int | Number of few-shot examples in prompt | `6`, `8` |
+| `sample` | int | Number of samples to evaluate (`-1` for all) | `1000`, `-1` |
+| `shuffle` | bool | Whether to shuffle the dataset | `true`, `false` |
+| `generate_max_length` | int | Maximum generation length in tokens | `128`, etc. |
+| `query_formulation` | string | Query formulation strategy | `"direct"` |
+| `output_dir` | string | Directory to save results | `"../result/QuCo-RAG_OLMo-2-1124-7B-Instruct_2wikimultihopqa"` |
+| `retriever` | string | Retriever type | `"BM25"`, `"SGPT"`, `"Qwen3"` |
+| `es_index_name` | string | Elasticsearch index name | `"wiki"` |
+| `retrieve_topk` | int | Number of documents to retrieve per query | `3` |
+| `use_counter` | bool | Whether to use token counter | `true`, `false` |
+| `debug` | bool | Enable debug logging | `true`, `false` |
+| `enable_time_stats` | bool | Enable detailed timing statistics | `true`, `false` |
+| `enable_cache` | bool | **Enable caching to accelerate experiments** | `true`, `false` |
+| `gpt_model` | string | Entity extraction model path | `"ZhishanQ/QuCo-extractor-0.5B"` |
+| `infini_gram_index_name` | string | Infini-gram corpus index name | `"v4_olmo-2-0325-32b-instruct_llama"` |
+| `retrieval_query_num` | int | Max queries per generation (`-1` = unlimited) | `-1`, `3`, `5` |
+| `ngram_threshold_question` | int | Frequency threshold for question entities | `1000`, `1000000`, etc. |
+| `question_query_formulation` | string | Question query formulation strategy | `"direct"` |
+| `prompt_template_key` | string | Prompt template identifier |  |
+
+**Important Tips:**
+- **Enable cache**: Set `"enable_cache": true` to significantly speed up repeated experiments on the same dataset
+- **Full evaluation**: Use `"sample": -1` to evaluate on the complete dataset
+- **Debug mode**: Set `"debug": true` for detailed logging during development
+
 ## Important Notes
 
 1. **GPU Requirements**: Our experiments can be conducted on NVIDIA GPUs like A40/A100/H100/H200. Make sure you have sufficient GPU memory (at least ~36GB for 7B models).
@@ -383,6 +418,56 @@ The scripts are located in `tools/`:
 - `encode_qwen3_vllm.py` - Python script for vLLM-based encoding
 
 > **Note**: This is optional. The default BM25 retriever works well for most cases.
+
+## Optional: Speed Up with Pre-computed Cache
+
+**We strongly recommend enabling cache to significantly accelerate experiments.**
+
+By setting `"enable_cache": true` in your configuration file, the system will save entity extraction results, Infini-gram queries, and retrieval results to local cache files. After the first run, subsequent experiments with the same queries will directly read from cache, dramatically reducing experiment time.
+
+**💡 The more experiments you run, the better the speedup!** Cache files accumulate over time, so repeated experiments on the same dataset will become increasingly faster.
+
+### Download Pre-computed Cache
+
+We provide pre-computed cache files for 2WikiMultihopQA and HotpotQA datasets on Google Drive (~77MB compressed):
+
+**📦 [Download Cache Files](https://drive.google.com/file/d/1L_rIvDaDORQ4hfq2ZUz7C7vfBFq4-K7q/view?usp=sharing)**
+
+The cache includes:
+- `2wikimultihopqa_infini_gram.json` - Infini-gram query results for 2WikiMultihopQA
+- `2wikimultihopqa_wiki_retrieval.json` - Wikipedia retrieval results for 2WikiMultihopQA
+- `hotpotqa_infini_gram.json` - Infini-gram query results for HotpotQA
+- `hotpotqa_wiki_retrieval.json` - Wikipedia retrieval results for HotpotQA
+
+> **Note**: These files contain only Infini-gram and retrieval cache. Entity extraction cache will be automatically created during your first run and reused in subsequent experiments.
+
+### Usage
+
+```bash
+# Download and extract cache files
+cd data
+mkdir -p cache
+cd cache
+
+# Download quco_cache.tar.gz from Google Drive, then extract:
+tar -xzf quco_cache.tar.gz
+
+# Verify files
+ls -lh
+# Should see: 2wikimultihopqa_infini_gram.json, 2wikimultihopqa_wiki_retrieval.json,
+#             hotpotqa_infini_gram.json, hotpotqa_wiki_retrieval.json
+```
+
+Then enable cache in your configuration file:
+
+```json
+{
+    "enable_cache": true,
+    ...
+}
+```
+
+> **Note**: Cache files are stored in `data/cache/` and are dataset-specific. The system will automatically create new cache files for other datasets or queries not included in the pre-computed cache.
 
 ## Citation
 
