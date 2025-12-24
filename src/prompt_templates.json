@@ -1,0 +1,60 @@
+{
+    "entity_extraction_prompt": "Extract the knowledge triples that convey core semantic information from the given sentence, strictly following the output format used in the examples.\nThe sentence may be a question or a declarative sentence.\n* **If the sentence is a question**, return [[entity, relation]], because you don't know the answer.\n  * This question could be a multi-hop question. In that case, **only consider the first relation**.\n  * You don't need to include any query about entities **not explicitly mentioned** in the question.\n* **If the sentence contains one knowledge triple**, return a list in the format:\n  [[head_entity_1, relation_1, tail_entity_1]]\n* **If the sentence contains no factual semantic information involving entities**, return an empty list: `[]`\n* **If the sentence contains more than one knowledge triple**, return a list in the format:\n  [[head_entity_1, relation_1, tail_entity_1], [head_entity_2, relation_2, tail_entity_2], ...]\n---\n**Example 1:**\nSentence:\nWhich film came out first, Kumbasaram or Mystery Of The 13Th Guest?\nentities:\n[[\"Kumbasaram\", \"came out\"], [\"Mystery of the 13th Guest\", \"came out\"]]\n\n**Example 2:**\nSentence:\nKumbasaram was released in 2017.\nentities:\n[[\"Kumbasaram\", \"released in\", \"2017\"]]\n\n**Example 3:**\nSentence:\nThus, Kumbasaram came out first.\nentities:\n[]\n\n**Example 4:**\nSentence:\nWhere did Diane Meyer Simon's husband graduate from?\nentities:\n[[\"Diane Meyer Simon\", \"husband\"]]\n\n**Example 5:**\nSentence:\nDiane Meyer Simon's husband is George F. Simon.\nentities:\n[[\"Diane Meyer Simon\", \"husband\", \"George F. Simon\"]]\n\n**Example 6:**\nSentence:\nRajiv Rai was born in Mumbai, Maharashtra, India.\nentities:\n[[\"Rajiv Rai\", \"place of birth\", \"Mumbai, Maharashtra, India\"]]\n\n**Example 7:**\nSentence:\nBeowulf & Grendel was directed by Sturla Gunnarsson.\nentities:\n[[\"Beowulf & Grendel\", \"directed by\", \"Sturla Gunnarsson\"]]\n\n**Example 8:**\nSentence:\nThus, Vincent Cobos is younger.\nentities:\n[]\n\n**Example 9:**\nSentence:\nSince both Massimo Bonanni and Gino Pasqualotto were Italian, they were from the same country.\nentities:\n[[\"Massimo Bonanni\", \"nationality\", \"Italian\"], [\"Gino Pasqualotto\", \"nationality\", \"Italian\"]]\n\n**Example 10:**\nSentence:\nWhich film whose director was born first, The Woman Thou Gavest Me or The Corpse Grinders?\nentities:\n[[\"The Woman Thou Gavest Me\", \"director\"], [\"The Corpse Grinders\", \"director\"]]\n\n**Example 11:**\nSentence:\nThe Woman Thou Gavest Me was directed by Robert Enrico and released in 1967.\nentities:\n[[\"The Woman Thou Gavest Me\", \"director\", \"Robert Enrico\"], [\"The Corpse Grinders\", \"released in\", \"1967\"]]\n\n**Example 12:**\nSentence:\nTherefore, Robert Enrico, the director of The Woman Thou Gavest Me, was born first.\nentities:\n[[\"Robert Enrico\", \"director\", \"The Woman Thou Gavest Me\"]]\n\n**Example 13:**\nSentence:\nVincent Cobos is 2 years and 7 months older than Paul Mokeski.\nentities:\n[]\n\n**Example 14:**\nSentence:\nCoulson Wallop's father, Nigel Wallop, studied at Eton College.\nentities:\n[[\"Coulson Wallop\", \"father\", \"Nigel Wallop\"], [\"Nigel Wallop\", \"studied at\", \"Eton College\"]]\n\nYour Task:\nSentence:{}\nentities:\n",
+    "entity_extraction_prompt_for_question": "Extract the key entities that convey core semantic information from the given question, strictly following the output format used in the examples.\n---\n**Example 1:**\nSentence:\nWhich film came out first, Kumbasaram or Mystery Of The 13Th Guest?\nentities:\n[[\"Kumbasaram\"], [\"Mystery of the 13th Guest\"]]\n\n**Example 2:**\nSentence:\nWho is the mother of the director of film Polish-Russian War (Film)?\nentities:\n[[\"Polish-Russian War (Film)\"]]\n\n**Example 3:**\nSentence:\nWhich film came out first, Blind Shaft or The Mask Of Fu Manchu?\nentities:\n[[\"Blind Shaft\"],[\"The Mask of Fu Manchu\"]]\n\n**Example 4:**\nSentence:\nWhen did John V, Prince Of Anhalt-Zerbst's father die?\nentities:\n[[\"John V, Prince of Anhalt-Zerbst\"]]\n\n**Example 5:**\nSentence:\nBlackfin is a family of processors developed by the company that is headquartered in what city?\nentities:\n[[\"Blackfin\"]]\n\n**Example 6:**\nSentence:\nWere both of the following rock groups formed in California: Dig and Thinking Fellers Union Local 282?\nentities:\n[[\"Dig rock group\"], [\"Thinking Fellers Union Local 282 rock group\"]]\n\n**Example 7:**\nSentence:\nAre Billy and Barak both breeds of scenthound? (Barak is also known as a Bosnian Coarse-haired Hound)\nentities:\n[[\"Billy\"], [\"Barak\"]]\n\n**Example 8:**\nSentence:\nAre both Volvic and Canfield's Diet Chocolate Fudge natural spring waters?\nentities:\n[[\"Volvic\"], [\"Canfield's Diet Chocolate Fudge\"]]\n\n**Example 9:**\nSentence:\nHas The Baseball Project released any albums together?\nentities:\n[[\"The Baseball Project\"]]\n\n**Example 10:**\nSentence:\nHow old was Heard when he co-produced with Buck?\nentities:\n[[\"Heard\"], [\"Buck\"]]\n\n**Example 11:**\nSentence:\nAre more people today related to Genghis Khan than Julius Caesar?\nentities:\n[[\"Genghis Khan\"], [\"Julius Caesar\"]]\n\n**Example 12:**\nSentence:\nCould the members of The Police perform lawful arrests?\nentities:\n[[\"The Police\"]]\n\n**Example 13:**\nSentence:\nWould a Monoamine Oxidase candy bar cheer up a depressed friend?\nentities:\n[[\"Monoamine Oxidase candy bar\"]]\n\nYour Task:\nSentence:{}\nentities:\n",
+    "query_rewrite_prompt": "Original question: {}\nRetrieve question: {}\nPlease consider the content of the \"Original question\", and rewrite the \"Retrieve question\" to make it more clearly express the information that needs to be retrieved.\n\nRewritten query:",
+    "default": {
+        "initial": {
+            "context_header": "\nUse the following context to help answer the question:\n",
+            "doc_format": "[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": "\nPlease answer the following question. The format of the answer should be the same as the example given before — specifically, use \"So the answer is\" to provide your answer.\n"
+        },
+        "hallucination": {
+            "context_header": "Please use the following potentially relevant information to answer the following question.\nDon't simply repeat the entire content of the relevant paragraph word for word.\nYour task is to try to answer your question directly. Do not output any information that is irrelevant to solve this problem.\nThe format of the answer should be the same as the example given before — specifically, use \"So the answer is\" to provide your answer.\n",
+            "doc_format": "doc[{index}] {doc}\n",
+            "post_doc": "Your task:\n"
+        }
+    },
+    "new_prompt_v1": {
+        "initial": {
+            "context_header": "\nBackground information that may be potentially useful in addressing your question:\n",
+            "doc_format": "[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": "\nPlease answer the following questions. The format of the answers should be the same as the examples given before. Specifically, you need to think through the answer to this question step by step. Each sentence should only present a fact statement. Avoid using pronouns like He/She/It or possessive pronouns like His/Her/Its, but instead use specific names. At the end of your answer, use \"So the answer is\" to provide your answer.\n"
+        },
+        "hallucination": {
+            "context_header": "\nBackground information that may be potentially useful in addressing your question:\n",
+            "doc_format": "[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": "\nPlease answer the following questions. The format of the answers should be the same as the examples given before. Specifically, you need to think through the answer to this question step by step. Each sentence should only present a fact statement. Avoid using pronouns like He/She/It or possessive pronouns like His/Her/Its, but instead use specific names. At the end of your answer, use \"So the answer is\" to provide your answer.\n"
+        }
+    },
+    "new_prompt_v3": {
+        "initial": {
+            "context_header": "\nUse the following context to help answer the question:\n",
+            "doc_format": "[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": "\nPlease answer the following question. The format of the answer should be the same as the example given before — specifically, use \"So the answer is\" to provide your answer. Think the question step by step.\n"
+        },
+        "hallucination": {
+            "context_header": "Please use the following potentially relevant information to answer the following question.\nDon't simply repeat the entire content of the relevant paragraph word for word.\nYour task is to try to answer your question directly. Do not output any information that is irrelevant to solve this problem.\nThe format of the answer should be the same as the example given before — specifically, use \"So the answer is\" to provide your answer.\n",
+            "doc_format": "doc[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": "\nPlease answer the following question. The format of the answer should be the same as the example given before — specifically, use \"So the answer is\" to provide your answer. Think the question step by step.\n"
+        }
+    },
+    "llama-2": {
+        "initial": {
+            "context_header": "\nContext:\n",
+            "doc_format": "[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": ""
+        },
+        "hallucination": {
+            "context_header": "Context:\n",
+            "doc_format": "[{index}] {doc}\n",
+            "post_doc": "\n",
+            "instruction": "Answer in the same format as before.\n"
+        }
+    }
+}
