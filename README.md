@@ -346,12 +346,43 @@ All configurations are in the `config/` folder.
 
 1. **GPU Requirements**: Our experiments can be conducted on NVIDIA GPUs like A40/A100/H100/H200. Make sure you have sufficient GPU memory (at least ~36GB for 7B models).
 
-2. **Elasticsearch Management**: 
-   - Start before experiments: `bash start_es.sh`
-   - Stop when done: `pkill -f elasticsearch`
-   - ES consumes ~4GB memory even when idle, so stop it when not in use.
+2. **Elasticsearch Management**: Always ensure Elasticsearch is running before starting experiments. Use the commands in the "Verify Elasticsearch" section to verify. ES consumes memory even when idle, so stop it when not in use.
+   
+   To stop Elasticsearch when you're done:
+   ```bash
+   # Find Elasticsearch process
+   ps aux | grep elasticsearch
+   
+   # Kill the process (replace <PID> with the actual process ID)
+   kill <PID>
+   
+   # Or force kill if needed
+   kill -9 <PID>
+   
+   # Alternative: kill all Elasticsearch processes at once
+   pkill -f elasticsearch
+   ```
 
 3. **Reproducibility**: To reproduce our reported results, please use the exact configuration files provided in the `config` folder without modifications. Make sure to use our knowledge triple extractor from [🤗 ZhishanQ/QuCo-extractor-0.5B](https://huggingface.co/ZhishanQ/QuCo-extractor-0.5B).
+
+## Optional: Alternative Retriever
+
+We provide scripts for encoding corpus with [Qwen3-Embedding-0.6B](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B) using vLLM for faster encoding:
+
+```bash
+# Install vLLM if not already installed
+pip install vllm>=0.8.5
+
+# Encode corpus
+cd tools
+bash encode_qwen3_vllm.sh
+```
+
+The scripts are located in `tools/`:
+- `encode_qwen3_vllm.sh` - Shell script to run encoding
+- `encode_qwen3_vllm.py` - Python script for vLLM-based encoding
+
+> **Note**: This is optional. The default BM25 retriever works well for most cases.
 
 ## Citation
 
