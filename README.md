@@ -78,7 +78,7 @@ tar zxvf elasticsearch-7.17.9.tar.gz
 cd ..
 ```
 
-**2. Download Wikipedia Dump **
+**2. Download Wikipedia Dump**
 
 Download the Wikipedia dump from the [DPR repository](https://github.com/facebookresearch/DPR):
 
