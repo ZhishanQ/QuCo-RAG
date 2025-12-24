@@ -1,0 +1,40 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+
+# IDE configuration
+.vscode/
+.idea/
+
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Models and data
+*.pt
+*.pth
+*.bin
+*.ckpt
+
+# Elasticsearch data
+elasticsearch-*/
+
+# Datasets
+data/
+
+# logs
+logs/
+
+# Result files
+result/
+*.jsonl
+
+# System files
+Thumbs.db
