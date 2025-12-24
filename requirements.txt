@@ -1,0 +1,53 @@
+# QuCo-RAG Dependencies
+# 
+# Installation:
+# 1. Install PyTorch first (with your desired CUDA version):
+#    pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+# 2. Then install other dependencies:
+#    pip install -r requirements.txt
+
+# Core Deep Learning
+transformers==4.56.1
+accelerate==1.10.1
+safetensors==0.6.2
+tokenizers==0.22.0
+
+# Data Processing & Validation
+datasets==4.0.0
+pandas==2.3.2
+numpy==1.26.4
+pyarrow==21.0.0
+pydantic==2.11.7
+
+# NLP & Text Processing
+spacy==3.7.2
+# Run after install: python -m spacy download en_core_web_sm
+sentencepiece==0.2.1
+tiktoken==0.11.0
+
+# Retrieval & Search
+elasticsearch==7.9.1
+sentence-transformers==5.1.0
+faiss-cpu==1.12.0
+rank-bm25==0.2.2
+beir==2.0.0
+
+# API Clients & I/O
+openai==1.109.0
+httpx==0.28.1
+requests==2.32.5
+smart-open==6.4.0
+
+# Evaluation & Scientific Computing
+evaluate==0.4.5
+pytrec_eval==0.5
+scikit-learn==1.6.1
+scipy==1.13.1
+
+# Utilities
+tqdm==4.67.1
+pyyaml==6.0.2
+huggingface-hub==0.34.4
+regex==2025.9.1
+rich==14.1.0
+pillow==11.3.0
