@@ -243,7 +243,9 @@ If Elasticsearch is running correctly, you should see cluster status as "green" 
 
 ### Run QuCo-RAG
 
-All the configuration files of our experiments are in the `config` folder. You can run QuCo-RAG with them directly. For example, if you want to run QuCo-RAG on 2WikiMultihopQA with OLMo-2-7B:
+All the configuration files of our experiments are in the `config` folder. You can run QuCo-RAG with them directly. 
+
+**For local models:**
 
 ```bash
 cd src
@@ -251,6 +253,17 @@ python main_quco.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/QuCo-RA
 ```
 
 If you don't have model weights locally, the above command will download them from Hugging Face Hub first.
+
+**For API models (e.g., GPT-4.1/GPT-5-chat):**
+
+```bash
+# First, set your OpenAI API key
+export OPENAI_API_KEY="your-api-key-here"
+
+# Then run with API model configuration
+cd src
+python main_quco.py -c ../config/API-gpt-4.1/2WikiMultihopQA/QuCo-RAG.json
+```
 
 If you see log messages like below, it means QuCo-RAG is running successfully:
 
@@ -282,6 +295,8 @@ The output will be saved in the `result/` folder. You can change the output fold
 
 We also provide implementations of baseline methods for comparison. You can run them using the corresponding configuration files:
 
+**For local models:**
+
 ```bash
 cd src
 
@@ -291,9 +306,6 @@ python main_baseline.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/SR-
 # Fix-Length RAG (FL-RAG)
 python main_baseline.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/FL-RAG.json
 
-# Fix-Sentence RAG (FS-RAG)
-python main_baseline.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/FS-RAG.json
-
 # FLARE
 python main_baseline.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/FLARE.json
 
@@ -302,6 +314,18 @@ python main_baseline.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/DRA
 
 # Without RAG (wo-RAG)
 python main_baseline.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/wo-RAG.json
+```
+
+**For API models (e.g., GPT-4.1):**
+
+```bash
+# First, set your OpenAI API key
+export OPENAI_API_KEY="your-api-key-here"
+
+cd src
+
+# Single Retrieval RAG (SR-RAG)
+python main_baseline.py -c ../config/API-gpt-4.1/2WikiMultihopQA/SR-RAG.json
 ```
 
 ## Evaluation
@@ -329,6 +353,8 @@ result/QuCo-RAG_OLMo-2-1124-7B-Instruct_2wikimultihopqa/1/
 We provide configuration files for the following models and datasets:
 
 **Models:**
+
+*Local Models:*
 - `OLMo-2-1124-7B-Instruct`
 - `OLMo-2-1124-13B-Instruct`
 - `OLMo-2-0325-32B-Instruct`
@@ -336,11 +362,44 @@ We provide configuration files for the following models and datasets:
 - `Qwen2.5-7B-Instruct`
 - `Qwen2.5-32B-Instruct`
 
+*API Models:*
+- `API-gpt-4.1`
+- `API-gpt-4o`
+- `API-gpt-5-chat-latest`
+
 **Datasets:**
 - `2WikiMultihopQA`
 - `HotpotQA`
 
 All configurations are in the `config/` folder.
+
+### Running API Models
+
+We also provide configuration files for OpenAI GPT models. To use these models, you need to set up your OpenAI API key:
+
+```bash
+# Set the environment variable (required before running API models)
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+**Available methods for API models:**
+- `QuCo-RAG.json` - QuCo-RAG method
+- `wo-RAG.json` - Without retrieval baseline
+- `SR-RAG.json` - Single retrieval baseline
+- `FS-RAG.json` - Fix-sentence retrieval baseline
+- `FL-RAG.json` - Fix-length retrieval baseline
+- `Web-Tool.json` - Web search tool baseline (uses OpenAI's web search capability)
+
+For gpt-4.1/gpt-4o models, OpenAI API provides the log-probability of generated tokens, which can be used for FLARE method. You can use FLARE's official implementation from [FLARE](https://github.com/jzbjyb/FLARE).
+
+**Permanent setup (optional):**
+```bash
+# Add to your shell configuration file (~/.bashrc or ~/.zshrc)
+echo 'export OPENAI_API_KEY="your-api-key-here"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+> **Note**: API models do not require local GPU resources, but API calls will incur costs based on OpenAI's pricing. For GPT models, we use llama2's tokenizer for token counting.
 
 ### Configuration Parameters
 
