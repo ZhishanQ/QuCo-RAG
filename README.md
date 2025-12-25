@@ -426,15 +426,13 @@ The following table describes all parameters available in QuCo-RAG configuration
 | `enable_cache` | bool | **Enable caching to accelerate experiments** | `true`, `false` |
 | `gpt_model` | string | Entity extraction model path | `"ZhishanQ/QuCo-extractor-0.5B"` |
 | `infini_gram_index_name` | string | Infini-gram corpus index name | `"v4_olmo-2-0325-32b-instruct_llama"` |
-| `retrieval_query_num` | int | Max queries per generation (`-1` = unlimited) | `-1`, `3`, `5` |
 | `ngram_threshold_question` | int | Frequency threshold for question entities | `1000`, `1000000`, etc. |
-| `question_query_formulation` | string | Question query formulation strategy | `"direct"` |
-| `prompt_template_key` | string | Prompt template identifier |  |
 
 **Important Tips:**
 - **Enable cache**: Set `"enable_cache": true` to significantly speed up repeated experiments on the same dataset
 - **Full evaluation**: Use `"sample": -1` to evaluate on the complete dataset
 - **Debug mode**: Set `"debug": true` for detailed logging during development
+- **Entity extraction options**: By default, we use [🤗 ZhishanQ/QuCo-extractor-0.5B](https://huggingface.co/ZhishanQ/QuCo-extractor-0.5B) for entity extraction, which is distilled from `gpt-4o-mini` and handles most domains and datasets well. For reproducibility, this default model is sufficient. However, if you want to explore optimal performance, our code also supports using `gpt-4o-mini` API directly for entity extraction by setting `"gpt_model": "gpt-4o-mini"` in the config (requires `OPENAI_API_KEY`). Feel free to experiment with different entity extraction models!
 
 ## Important Notes
 
@@ -538,3 +536,4 @@ We thank the authors of the following projects for their excellent work:
 - [DRAGIN](https://github.com/oneal2000/DRAGIN)
 - [ETC](https://github.com/pkuserc/ETC)
 - [Infini-gram](https://infini-gram.io/)
+- [FLARE](https://github.com/jzbjyb/FLARE).
