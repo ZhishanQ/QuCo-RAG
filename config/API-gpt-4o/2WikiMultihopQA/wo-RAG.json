@@ -1,0 +1,18 @@
+{
+    "model_name_or_path": "gpt-4o",
+    "method": "non-retrieval",
+    "dataset": "2wikimultihopqa",
+    "data_path": "../data/2wikimultihopqa",
+    "fewshot": 6,
+    "sample": 1000,
+    "shuffle": false,
+    "generate_max_length": 512,
+    "query_formulation": "direct",
+    "output_dir": "../result/wo-RAG_gpt-4o_2wikimultihopqa",
+    "es_index_name": "wiki",
+    "use_counter": true,
+    "debug": false,
+    "use_llm_api": true,
+    "api_base_url": "https://api.openai.com/v1",
+    "tokenizer_name_or_path": "meta-llama/Llama-2-7b-chat-hf"
+}

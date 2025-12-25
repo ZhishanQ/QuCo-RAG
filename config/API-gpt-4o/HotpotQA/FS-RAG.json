@@ -1,0 +1,20 @@
+{
+    "model_name_or_path": "gpt-4o",
+    "method": "fix-sentence-retrieval",
+    "dataset": "hotpotqa",
+    "data_path": "../data/hotpotqa",
+    "fewshot": 8,
+    "sample": 1000,
+    "shuffle": false,
+    "generate_max_length": 512,
+    "query_formulation": "direct",
+    "output_dir": "../result/FS-RAG_gpt-4o_hotpotqa",
+    "retriever": "BM25",
+    "es_index_name": "wiki",
+    "retrieve_topk": 3,
+    "use_counter": true,
+    "debug": false,
+    "use_llm_api": true,
+    "api_base_url": "https://api.openai.com/v1",
+    "tokenizer_name_or_path": "meta-llama/Llama-2-7b-chat-hf"
+}
