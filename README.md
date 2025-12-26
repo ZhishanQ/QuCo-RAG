@@ -111,9 +111,13 @@ cd data/elasticsearch-7.17.9
 nohup bin/elasticsearch &
 cd ../..  # Return to QuCo-RAG root
 
-# Wait for ES to start (~30-60 seconds), then verify it's running
-sleep 30
+# Wait for ES to start (typically 2-5 minutes, depending on your system)
+sleep 200
+# You can check if ES is ready by running:
 curl localhost:9200
+
+# If you see "Connection refused", wait a bit longer and try again.
+# ES is ready when you see a JSON response with "You Know, for Search"
 ```
 
 If Elasticsearch is running successfully, you should see output similar to:
