@@ -65,6 +65,8 @@ python -m spacy download en_core_web_sm
 
 ## Data Preparation
 
+> **Important**: All commands in this section assume you are in the `QuCo-RAG` project root directory. Make sure to run `cd QuCo-RAG` first if you haven't already.
+
 ### Prerequisites
 
 Before setting up the BM25 index, you need to download two things:
@@ -72,6 +74,11 @@ Before setting up the BM25 index, you need to download two things:
 **1. Download Elasticsearch 7.17.9**
 
 ```bash
+# Make sure you are in the QuCo-RAG directory
+cd QuCo-RAG  # Skip this if you're already in the project root
+
+# Create data directory and download Elasticsearch
+mkdir -p data
 cd data
 wget -O elasticsearch-7.17.9.tar.gz https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.9-linux-x86_64.tar.gz
 tar zxvf elasticsearch-7.17.9.tar.gz
@@ -83,6 +90,7 @@ cd ..
 Download the Wikipedia dump from the [DPR repository](https://github.com/facebookresearch/DPR):
 
 ```bash
+# Make sure you are in the QuCo-RAG directory
 mkdir -p data/dpr
 wget -O data/dpr/psgs_w100.tsv.gz https://dl.fbaipublicfiles.com/dpr/wikipedia_split/psgs_w100.tsv.gz
 pushd data/dpr && gzip -d psgs_w100.tsv.gz && popd
@@ -95,15 +103,36 @@ Choose **ONE** of the following options to set up the BM25 index. You only need 
 **Option 1: Build index from scratch** (~2-3 hours)
 
 ```bash
+# Make sure you are in the QuCo-RAG directory first!
+cd QuCo-RAG  # Skip this if you're already in the project root
+
 # Start Elasticsearch
 cd data/elasticsearch-7.17.9
 nohup bin/elasticsearch &
-cd ../..
+cd ../..  # Return to QuCo-RAG root
 
-# Wait for ES to start, then verify it's running
+# Wait for ES to start (~30-60 seconds), then verify it's running
+sleep 30
 curl localhost:9200
+```
 
-# Build the index
+If Elasticsearch is running successfully, you should see output similar to:
+```json
+{
+  "name" : "your-node-name",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "xxxxxx",
+  "version" : {
+    "number" : "7.17.9",
+    ...
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
+Run the following command to build the index after Elasticsearch is running.
+```bash
+# Build the index (this takes 2-3 hours)
 python tools/prep_elastic_index_with_progress.py --data_path data/dpr/psgs_w100.tsv --index_name wiki
 ```
 
@@ -166,6 +195,8 @@ pkill -f elasticsearch
 
 ### Datasets
 
+> **Note**: Run these commands from the `QuCo-RAG` project root directory.
+
 **2WikiMultihopQA**
 
 Download from [Dropbox](https://www.dropbox.com/s/ms2m13252h6xubs/data_ids_april7.zip?e=1), unzip, and move to `data/2wikimultihopqa`. (You can just keep two files: `dev.json` and `id_aliases.json`.)
@@ -173,6 +204,7 @@ Download from [Dropbox](https://www.dropbox.com/s/ms2m13252h6xubs/data_ids_april
 **HotpotQA**
 
 ```bash
+# Make sure you are in the QuCo-RAG directory
 mkdir -p data/hotpotqa
 wget -O data/hotpotqa/hotpotqa-dev.json http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json
 ```
@@ -501,6 +533,9 @@ The cache includes:
 ### Usage
 
 ```bash
+# Make sure you are in the QuCo-RAG directory first
+cd QuCo-RAG  # Skip this if you're already in the project root
+
 # Download and extract cache files
 cd data
 mkdir -p cache
@@ -513,6 +548,9 @@ tar -xzf quco_cache.tar.gz
 ls -lh
 # Should see: 2wikimultihopqa_infini_gram.json, 2wikimultihopqa_wiki_retrieval.json,
 #             hotpotqa_infini_gram.json, hotpotqa_wiki_retrieval.json
+
+# Return to project root
+cd ../..
 ```
 
 Then enable cache in your configuration file:
