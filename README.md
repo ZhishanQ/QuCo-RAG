@@ -58,7 +58,7 @@ mkdir -p cache && cd cache
 tar -xzf quco_cache.tar.gz
 ```
 
-Then set `"enable_cache": true` in your config file. See [Optional: Speed Up with Pre-computed Cache](#optional-speed-up-with-pre-computed-cache) for details.
+Then set `"enable_cache": true` in your config file(like [QuCo-RAG-cache.json](config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/QuCo-RAG-cache.json)). See [Optional: Speed Up with Pre-computed Cache](#optional-speed-up-with-pre-computed-cache) for details.
 
 ---
 
@@ -308,7 +308,11 @@ All the configuration files of our experiments are in the `config` folder. You c
 
 ```bash
 cd src
+# Standard configuration
 python main_quco.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/QuCo-RAG.json
+
+# 🚀 With pre-computed cache (recommended if you've downloaded cache files)
+python main_quco.py -c ../config/OLMo-2-1124-7B-Instruct/2WikiMultihopQA/QuCo-RAG-cache.json
 ```
 
 If you don't have model weights locally, the above command will download them from Hugging Face Hub first.
