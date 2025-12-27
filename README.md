@@ -23,6 +23,7 @@ Official implementation of the paper:
   - *During generation*: Verifies entity co-occurrence to detect hallucination risk
 - 🔄 **Model-Agnostic**: Works with OLMo, Llama, Qwen, and even GPT models
 - 📈 **Strong Performance**: Achieves EM gains of 5-12 points over SOTA baselines on multi-hop QA benchmarks
+- 🚀 **Pre-computed Cache Available**: Download our cache files to speed up experiments by 2-5x (see [Quick Start Tip](#-quick-start-tip) below)
 
 ## Table of Contents
 
@@ -38,6 +39,28 @@ Official implementation of the paper:
 - [Important Notes](#important-notes)
 - [Citation](#citation)
 - [Acknowledgements](#acknowledgements)
+
+---
+
+## 🚀 Quick Start Tip
+
+**💡 We strongly recommend downloading our pre-computed cache files to significantly accelerate your experiments!**
+
+Our cache includes Infini-gram and retrieval results for 2WikiMultihopQA and HotpotQA datasets. With cache enabled, you can reduce experiment time by **2-5x** depending on your setup.
+
+📦 **[Download Cache Files (77MB)](https://drive.google.com/file/d/1L_rIvDaDORQ4hfq2ZUz7C7vfBFq4-K7q/view?usp=sharing)**
+
+```bash
+# Quick setup
+cd QuCo-RAG/data
+mkdir -p cache && cd cache
+# Download quco_cache.tar.gz from the link above, then:
+tar -xzf quco_cache.tar.gz
+```
+
+Then set `"enable_cache": true` in your config file. See [Optional: Speed Up with Pre-computed Cache](#optional-speed-up-with-pre-computed-cache) for details.
+
+---
 
 ## Installation
 
