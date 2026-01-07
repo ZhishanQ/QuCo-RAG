@@ -426,9 +426,9 @@ We provide configuration files for the following models and datasets:
 - `Qwen2.5-32B-Instruct`
 
 *API Models:*
-- `API-gpt-4.1`
-- `API-gpt-4o`
-- `API-gpt-5-chat-latest`
+- `gpt-4.1`
+- `gpt-4o`
+- `gpt-5-chat-latest`
 
 **Datasets:**
 - `2WikiMultihopQA`
