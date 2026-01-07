@@ -599,6 +599,15 @@ Then enable cache in your configuration file:
 
 If you find this work useful, please cite our paper.
 
+```bibtex
+@article{min2025quco,
+  title={QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation},
+  author={Min, Dehai and Zhang, Kailin and Wu, Tongtong and Cheng, Lu},
+  journal={arXiv preprint arXiv:2512.19134},
+  year={2025}
+}
+```
+
 ## Acknowledgements
 
 We thank the authors of the following projects for their excellent work:
