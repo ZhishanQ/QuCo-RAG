@@ -2,6 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2512.19134-b31b1b.svg)](https://arxiv.org/abs/2512.19134)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Generic badge](https://img.shields.io/badge/WeChat-新智元-green.svg?logo=wechat)](https://mp.weixin.qq.com/s/2hcm6AvMxh39XS7RECjXLA)
 
 Official implementation of the paper:
 
