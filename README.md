@@ -1,14 +1,17 @@
 # QuCo-RAG
 
+[![Conference](https://img.shields.io/badge/ACL%20Findings-2026-blue.svg)](https://2026.aclweb.org/)
 [![arXiv](https://img.shields.io/badge/arXiv-2512.19134-b31b1b.svg)](https://arxiv.org/abs/2512.19134)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Generic badge](https://img.shields.io/badge/WeChat-新智元-green.svg?logo=wechat)](https://mp.weixin.qq.com/s/2hcm6AvMxh39XS7RECjXLA)
 
-Official implementation of the paper:
+Official implementation of the paper (**Accepted to ACL Findings 2026** 🎉):
 
 > **QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation**
-> 
+>
 > Dehai Min, Kailin Zhang, Tongtong Wu, Lu Cheng
+>
+> *Findings of the Association for Computational Linguistics: ACL 2026*
 >
 > [[Paper]](https://arxiv.org/abs/2512.19134) [[PDF]](https://arxiv.org/pdf/2512.19134)
 
