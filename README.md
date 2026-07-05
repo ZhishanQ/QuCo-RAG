@@ -604,11 +604,25 @@ Then enable cache in your configuration file:
 If you find this work useful, please cite our paper.
 
 ```bibtex
-@article{min2025quco,
-  title={QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation},
-  author={Min, Dehai and Zhang, Kailin and Wu, Tongtong and Cheng, Lu},
-  journal={arXiv preprint arXiv:2512.19134},
-  year={2025}
+@inproceedings{min-etal-2026-quco,
+    title = "{Q}u{C}o-{RAG}: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation",
+    author = "Min, Dehai  and
+      Zhang, Kailin  and
+      Wu, Tongtong  and
+      Cheng, Lu",
+    editor = "Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {ACL} 2026",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-acl.812/",
+    doi = "10.18653/v1/2026.findings-acl.812",
+    pages = "16482--16500",
+    ISBN = "979-8-89176-395-1"
 }
 ```
 
